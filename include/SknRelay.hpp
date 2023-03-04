@@ -34,10 +34,8 @@ private:
   const int _relayOnLevel = HIGH;
   int _relayOffLevel = !_relayOnLevel;
 
-  const char *cCaption = "• Relay Module:";
+  const char *cCaption = "[SknRelay] • Relay Module:";
   const char *cIndent = " ✖  ";
 
   const char *cRelayID = "operate";
-
-  volatile bool vbEnabled = false;                 // operating trigger
 };

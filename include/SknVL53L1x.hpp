@@ -64,7 +64,7 @@ private :
   unsigned int uiInterMeasurement;
 
   unsigned long ulLastTrigger = 0;
-  unsigned long ulTrigger = 60000; // 60 seconds after last idle/stop,   Stats are sent every 300 seconds or 300000 ms
+  unsigned long ulTrigger = 5000; // 60 seconds after last idle/stop,   Stats are sent every 300 seconds or 300000 ms
 
       VL53L1X sensor;                        // Ranging Device
   Preferences prefs;                      // stored ranger limit min - max
@@ -100,6 +100,6 @@ private :
   //   float ambient_count_rate_MCPS;
   // };
 
-  const char *cCaption   = "• Garage Door Automaton Module:";
+  const char *cCaption   = "[SknVL53L1x] • Garage Door Automaton Module:";
   const char *cIndent    = " ✖  ";
 };

@@ -15,7 +15,6 @@
 #include "SknLD2410.hpp"
 #include "SknVL53L1x.hpp"
 
-// ARDUINO_ESP32_DEV
 
 #ifdef ESP8266
 extern "C"
@@ -29,7 +28,6 @@ extern "C"
 
 // Select pins for Temperature and Motion
 // esp32doit-devkit-v1  pins
-#define ATM_PLAYER_DISABLE_TONE   // disable some Automaton Ardunio issues (noTone, Tone, AnalogWrite)
 #define SDA         21
 #define SCL         22
 #define LOX_GPIO    13    // D7
@@ -63,12 +61,25 @@ void setup() {
   delay(250);  
   Serial.begin(115200);
   delay(250);  
-  Serial << endl << "Starting..." << endl;
-  
-  // enable all classes
-  gbSensorsEnabled = true;
+  Serial << "Starting..." << endl;
+
+  environment.begin();
+  relay.begin();
+  lox.begin();
+  presence.begin();
+
+      // enable all classes
+      gbSensorsEnabled = true;
 }
 
+unsigned long lastInterval = millis();
 void loop() {
-  // put your main code here, to run repeatedly:
+  environment.loop();
+  relay.loop();
+  if((millis()-lastInterval) >= 5000) {
+    lastInterval = millis();
+    relay.toogle();
+  }
+  lox.loop();
+  presence.loop();
 }

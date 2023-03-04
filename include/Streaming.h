@@ -23,11 +23,7 @@ Ref: http://arduiniana.org/libraries/streaming/
 
 #pragma once
 
-#if defined(ARDUINO) && ARDUINO >= 100
 #include "Arduino.h"
-#else
-#include "WProgram.h"
-#endif
 
 #define STREAMING_LIBRARY_VERSION 5
 

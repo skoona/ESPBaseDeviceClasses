@@ -42,7 +42,8 @@ void SknRelay::setHoldTimeInMilliseconds(const int ms)
  */
 void SknRelay::toogle(bool shortCycle)
 {
-  if (vbEnabled) {
+  if (gbSensorsEnabled)
+  {
     int delayTime = _relayHold;
 
     if (shortCycle) {
@@ -74,6 +75,14 @@ void SknRelay::loop() {
 void SknRelay::begin() {
   pinMode(_relayPin, OUTPUT); // Door operator
   digitalWrite(_relayPin, _relayOffLevel); // Init door to off
+  Serial << cCaption << endl;
+  Serial << cIndent
+         << F("Sensor Model:  ")
+         << "Relay"
+         << endl;
+  Serial << cIndent
+         << F("Sensor Status: ")
+         << "OK"
+         << endl;
 
-  vbEnabled = false;
 }

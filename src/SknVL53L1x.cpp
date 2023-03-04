@@ -36,6 +36,8 @@ SknVL53L1x::SknVL53L1x( unsigned int timingBudgetUS, unsigned int interMeasureme
  * - one reading every second
  */
 SknVL53L1x& SknVL53L1x::begin( ) {
+  Serial << cCaption << endl;
+  Wire.begin();
   if(isInitialized()) return *this;     // no double dips
 
   limitsRestore(); // load the limits

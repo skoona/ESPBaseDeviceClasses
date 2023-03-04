@@ -45,21 +45,6 @@ void SknLD2410::begin() {
 
 }
 
-/**
- * Is connected and in run mode
-*/
-void SknLD2410::loop() {
-  _timer = millis();
-
-  sensor.ld2410_loop();
-  
-  // Module controls hold time, so all we need is to read the io pin
-  if ((_motion != digitalRead(_ioPin)) || ((_timer - _lastBroadcast) > _broadcastInterval)) {       
-    _lastBroadcast = _timer;
-    _motion = digitalRead(_ioPin);
-  }
-}
-
 /*
  * Translate current status
 */
@@ -79,3 +64,20 @@ const char * SknLD2410::triggeredby() {
   return triggered;
 }
 
+/**
+ * Is connected and in run mode
+ */
+void SknLD2410::loop()
+{
+  _timer = millis();
+
+  sensor.ld2410_loop();
+
+  // Module controls hold time, so all we need is to read the io pin
+  if ((_motion != digitalRead(_ioPin)) || ((_timer - _lastBroadcast) > _broadcastInterval))
+  {
+    _lastBroadcast = _timer;
+    _motion = digitalRead(_ioPin);
+    Serial << cIndent << triggeredby() << endl;
+  }
+}
