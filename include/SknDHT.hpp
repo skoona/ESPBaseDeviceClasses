@@ -19,7 +19,7 @@ class SknDHT {
 
 public:
 
-  SknDHT(const uint8_t dhtPin, DHTesp::DHT_MODEL_t dhtModel = DHTesp::DHT_MODEL_t::DHT11);
+  SknDHT(const uint8_t dhtPin, DHTesp::DHT_MODEL_t dhtModel = DHTesp::DHT_MODEL_t::DHT22);
 
   float  getTemperature() const { return DHTesp::toFahrenheit( _sensorResults.temperature ); }
   float  getHumidity() const { return _sensorResults.humidity; }

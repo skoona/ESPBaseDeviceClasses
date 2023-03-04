@@ -8,6 +8,8 @@
  * @copyright Copyright (c) 2023
  * 
  */
+#define LD2410_DEBUG_DATA
+#define LD2410_DEBUG_PARSE
 
 #include "SknLD2410.hpp"
 

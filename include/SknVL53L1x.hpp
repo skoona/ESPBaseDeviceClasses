@@ -100,6 +100,6 @@ private :
   //   float ambient_count_rate_MCPS;
   // };
 
-  const char *cCaption   = "[SknVL53L1x] • Garage Door Automaton Module:";
+  const char *cCaption = "[SknVL53L1x] • Time-of-Flight Sensor";
   const char *cIndent    = " ✖  ";
 };

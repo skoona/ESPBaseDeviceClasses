@@ -9,6 +9,7 @@
  * 
  */
 
+
 #include <Arduino.h>
 #include "SknDHT.hpp"
 #include "SknRelay.hpp"
@@ -23,42 +24,39 @@ extern "C"
 }
 #endif
 
-#undef LED_BUILTIN
-#define LED_BUILTIN 4
+// #undef LED_BUILTIN
+// #define LED_BUILTIN 4
+// LONLIN32 uses pin 5 for LED
 
 // Select pins for Temperature and Motion
 // esp32doit-devkit-v1  pins
 #define SDA         21
 #define SCL         22
-#define LOX_GPIO    13    // D7
-#define RELAY_GPIO  12    // D6
+
 #define RELAY_PIN    5    // sonoff
+
 #define DHT_PIN      4    // D4  4
+#define DHT_TYPE DHTesp::DHT_MODEL_t::DHT11 // DHTesp::DHT22
+
 #define LD_IO       18    // D18        
 #define LD_RX       16    // D6
 #define LD_TX       17    // D7
-#define DHT_TYPE DHTesp::DHT_MODEL_t::DHT22 // DHTesp::DHT22
-
-#define SENSOR_READ_INTERVAL 300
 #define LD2410_TARGET_REPORTING false   // enables status property
 
 #define LOX_TIMING_BUDGET_US    250000        // = 250 ms
 #define LOX_INTERMEASUREMENT_MS   1000        // = 1000 ms
-
-#define VALIDATION_MAX_MS         1000
-#define VALIDATION_MIN_MS          200
 #define VALIDATION_DEFAULT_MS      400 
 
 // guard-flag to prevent sending properties when offline
 volatile bool gbSensorsEnabled=false;
 
 SknLD2410    presence(LD_RX, LD_TX, LD_IO);
-SknDHT    environment(DHT_PIN);
+SknDHT    environment(DHT_PIN, DHT_TYPE);
 SknVL53L1x        lox(LOX_TIMING_BUDGET_US, LOX_INTERMEASUREMENT_MS);
 SknRelay        relay(RELAY_PIN, VALIDATION_DEFAULT_MS, HIGH);
 
 void setup() {
-  delay(250);  
+  delay(250);
   Serial.begin(115200);
   delay(250);  
   Serial << "Starting..." << endl;
@@ -68,15 +66,15 @@ void setup() {
   lox.begin();
   presence.begin();
 
-      // enable all classes
-      gbSensorsEnabled = true;
+  // enable all classes
+  gbSensorsEnabled = true;
 }
 
 unsigned long lastInterval = millis();
 void loop() {
   environment.loop();
   relay.loop();
-  if((millis()-lastInterval) >= 5000) {
+  if((millis()-lastInterval) >= 15000) {
     lastInterval = millis();
     relay.toogle();
   }

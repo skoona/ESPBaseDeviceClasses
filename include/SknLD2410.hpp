@@ -29,7 +29,7 @@ public:
 
 private:
   const char *cCaption = "[SknLD2410] • mmWave sensor Motion Sensor";
-  const char *cIndent = " ✖  ";
+  const char *cIndent = " ✖✖✖ ";
 
   // Motion Node Properties
   const uint8_t _rxPin;
